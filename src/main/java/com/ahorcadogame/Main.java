@@ -9,9 +9,10 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Mostrar el mensaje de bienvenida y el menú inicial
+        // menu principal del juego
         boolean salir = false;
         while (!salir) {
+            limpiarPantalla(); 
             System.out.println("♨");
             System.out.println("♨");
             System.out.println("♨");
@@ -34,18 +35,25 @@ public class Main {
             System.out.println("|  2. Salir            |");
             System.out.println("------------------------");
             System.out.println("♨");
-            System.out.print("✧˚ ༘ ⋆｡˚ Seleccione una opción: ");
+            System.out.print("✧˚ ༘ ⋆｡˚ Seleccione una opción: "); 
             int opcion = scanner.nextInt();
 
             switch (opcion) {
                 case 1:
-                    iniciarJuego(scanner);
+                    jugar(scanner);
                     break;
                 case 2:
                     salir = true;
+                    limpiarPantalla();
                     System.out.println("♨");
                     System.out.println("✧˚ ༘ ⋆｡˚ Gracias por jugar. Hasta luego :D");
-                    System.out.println("♨");
+                    System.out.println("              /\\_____/\\\n " );
+                    System.out.println("             /  o   o  \\\n"  );
+                    System.out.println("            ( ==  ^  == )\n" );
+                    System.out.println("             )         (\n" );
+                    System.out.println("            (           )\n" );
+                    System.out.println("           ( (  )   (  ) )\n" );
+                    System.out.println("          (__(__)___(__)__)");
                     break;
                 default:
                     System.out.println("♨");
@@ -85,12 +93,15 @@ public class Main {
         Set<Character> letrasIngresadas = new HashSet<>();
 
         while (intentos < 3 && !palabraAdivinada) {
-            System.out.println("Palabra: " + String.valueOf(guiones));
+            System.out.println("Palabra: " + mostrarGuionesSeparados(guiones));
             System.out.print("Ingrese una letra: ");
+            System.out.println("✧˚ ༘ ⋆｡˚");
             char letra = scanner.next().charAt(0);
 
             if (letrasIngresadas.contains(letra)) {
+                System.out.println("♨");
                 System.out.println("Ya has ingresado esa letra. Intenta con otra.");
+                System.out.println("♨");
                 continue;
             }
 
@@ -113,27 +124,98 @@ public class Main {
         }
 
         if (palabraAdivinada) {
-            System.out.println("¡Felicidades! Adivinaste la palabra: " + palabraSecreta);
+            limpiarPantalla(); 
+            System.out.println("✧˚ ༘ ⋆｡˚");
+            System.out.println(" ---------------------------------------------- ");
+            System.out.println(" |   ¡Felicidades! Adivinaste la palabra :D   |");
+            System.out.println(" |--------------------------------------------| ");
+            System.out.println(" |            | ---/|     " +  palabraSecreta +" <-----------------{{{");
+            System.out.println(" |            | >_< |                         |");
+            System.out.println(" |              _U_/-..----.                  |");
+            System.out.println(" |            _/ `   ' ,                      |");
+            System.out.println(" |           (__...'   __     |`.___.';       |");
+            System.out.println(" |             (_,...'(_,.`__)/'.....+        |");
+            System.out.println(" ---------------------------------------------- ");
+            System.out.println("✧˚ ༘ ⋆｡˚");
         } else {
-            System.out.println("Lo siento, has perdido. La palabra era: " + palabraSecreta);
+            System.out.println("✧˚ ༘ ⋆｡˚");
+            System.out.println("Haz matado a el gato :C. La palabra era: " + palabraSecreta);
+            System.out.println("✧˚ ༘ ⋆｡˚");
         }
     }
 
-    // dibujo del ahorcado dependiendo de los intentos fallios
+    // método para mostrar guiones separados
+    private static String mostrarGuionesSeparados(char[] guiones) {
+        StringBuilder sb = new StringBuilder();
+        for (char c : guiones) {
+            sb.append(c).append(' ');
+        }
+        return sb.toString().trim();
+    }
+
+    // metodo de eleccion al terminar el juego
+    private static void jugar(Scanner scanner) {
+        boolean continuar = true;
+        while (continuar) {
+            iniciarJuego(scanner);
+    
+            System.out.println("♨");
+            System.out.println("¿Desea continuar jugando? (S/N): ");
+            char respuesta = scanner.next().charAt(0);
+            if (respuesta == 'N' || respuesta == 'n') {
+                continuar = false;
+            } else {
+                limpiarPantalla(); 
+            }
+        }
+    }
+
+    // limpiar pantalla
+    private static void limpiarPantalla() {
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
+    }
+    
+    
+
+    // dibujo del ahorcado dependiendo de los intentos fallidos
     private static void dibujarAhorcado(int intentos) {
+        limpiarPantalla(); 
         System.out.println("Intentos fallidos: " + intentos);
         switch (intentos) {
             case 1:
-                System.out.println(" O ");
+                System.out.println("✧˚ ༘ ⋆｡˚");
+                System.out.println(" |--------------------------------------------| ");
+                System.out.println(" |            | ---/|               (1)       |");
+                System.out.println(" |            | ,_, |                         |");
+                System.out.println(" |-------->      o`_/-..----.                 |");
+                System.out.println(" |            _/ `   ' ,                      |");
+                System.out.println(" |           (__...'   __     |`.___.';       |");
+                System.out.println(" |             (_,...'(_,.`__)/'.....+        |");
+                System.out.println(" ---------------------------------------------- ");
                 break;
             case 2:
-                System.out.println(" O ");
-                System.out.println(" | ");
+                System.out.println("✧˚ ༘ ⋆｡˚");
+                System.out.println(" |--------------------------------------------| ");
+                System.out.println(" |            | ---/|               (2)       |");
+                System.out.println(" |            | u_u |                         |");
+                System.out.println(" |------------------------->                  |");
+                System.out.println(" |            _/ `   ' ,                      |");
+                System.out.println(" |           (__...'   __     |`.___.';       |");
+                System.out.println(" |             (_,...'(_,.`__)/'.....+        |");
+                System.out.println(" ---------------------------------------------- ");
                 break;
             case 3:
-                System.out.println(" O ");
-                System.out.println(" | ");
-                System.out.println("/ \\");
+                System.out.println("✧˚ ༘ ⋆｡˚");
+                System.out.println(" |--------------------------------------------| ");
+                System.out.println(" |            | ---/|            WASTED       |");
+                System.out.println(" |            | x_x |                         |");
+                System.out.println(" |----------------------------------------->  |");
+                System.out.println(" |            _/ `   ' ,                      |");
+                System.out.println(" |           (__...'   __     |`.___.';       |");
+                System.out.println(" |             (_,...'(_,.`__)/'.....+        |");
+                System.out.println(" ---------------------------------------------- ");
                 break;
             default:
                 break;
